@@ -55,5 +55,30 @@ public class Heap {
         return size == 0;
     }
 
+    /**
+     * Returns the parent index of the given.
+     * @param idx
+     * @return parent index
+     */
+    private static int parentOf(int idx) {
+        return (idx - 1) / 2;
+    }
 
+    /**
+     * Returns the left child index of the given.
+     * @param idx
+     * @return left child index
+     */
+    private static int leftOf(int idx) {
+        return (2 * idx) + 1;
+    }
+
+    /**
+     * Returns the right child index of the given.
+     * @param idx
+     * @return right child index
+     */
+    private static int rightOf(int idx) {
+        return (2 * idx) + 2;
+    }
 }
