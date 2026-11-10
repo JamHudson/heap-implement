@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A min-heap. 
  * 
@@ -22,5 +25,35 @@
  *  - hold private instance variables
  */
 public class Heap {
+    private List<Integer> array;
+    private int size;
+
+    public Heap() {
+        this.array = new ArrayList<>();
+        this.size = 0;
+    }
+
+    public void add() {
+        size++;
+
+    }
+
+    public int pop() {
+        size--;
+        return -1;
+    }
+
+    public int peek() {
+        return -1;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
 
 }
