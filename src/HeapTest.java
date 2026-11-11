@@ -30,11 +30,33 @@ public class HeapTest {
     }
 
     @Test 
+    public void addNegatives() {
+        Heap heap = new Heap();
+        heap.add(-3);
+        heap.add(-9);
+        heap.add(-12);
+        heap.add(-5);
+
+        assertEquals(4, heap.size());
+    }
+
+    @Test 
+    public void addNegativesAndPositives() {
+        Heap heap = new Heap();
+        heap.add(-3);
+        heap.add(3);
+        heap.add(32);
+        heap.add(-53);
+        heap.add(0);
+
+        assertEquals(5, heap.size());
+    }
+
+    @Test 
     public void addNone() {
         Heap heap = new Heap();
 
         assertEquals(0, heap.size());
-        // assertEquals(List.of(), heap);
     }
     
     @Test 
@@ -58,6 +80,8 @@ public class HeapTest {
     public void popIsAlwaysSmallest() {
         Heap heap = new Heap();
         heap.add(2);
+        heap.add(3);
+        heap.add(4);
         heap.add(1);
         heap.add(0);
 
@@ -65,8 +89,38 @@ public class HeapTest {
         pulled.add(heap.pop());
         pulled.add(heap.pop());
         pulled.add(heap.pop());
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
 
-        assertEquals(List.of(0,1,2), pulled);
+        assertEquals(List.of(0,1,2,3,4), pulled);
+    }
+
+    @Test 
+    public void popPositiveAndNegativesNumbers() {
+        Heap heap = new Heap();
+        heap.add(5);
+        heap.add(-9);
+        heap.add(7);
+        heap.add(-2);
+        heap.add(4);
+
+        List<Integer> pulled = new ArrayList<>();
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
+
+        assertEquals(List.of(-9,-2,4,5,7), pulled);
+    }
+
+    @Test
+    public void popThrowsErrorWhenEmpty() {
+        Heap heap = new Heap();
+
+        assertThrows(IllegalStateException.class, () -> {
+            heap.pop();
+        });
     }
 
     @Test 
@@ -107,6 +161,33 @@ public class HeapTest {
         heap.add(27);
 
         assertTrue(heap.peek() == heap.pop());
+    }
+
+    @Test
+    public void isEmptyTrueWhenEmpty() {
+        Heap heap = new Heap();
+        
+        assertTrue(heap.isEmpty());
+    }
+
+    @Test 
+    public void isEmptyTrueWhenRemovedNodes() {
+        Heap heap = new Heap();
+        heap.add(5);
+        heap.pop();
+
+        assertTrue(heap.isEmpty());
+    }
+
+    @Test
+    public void isEmptyFalseWhenNodes() {
+        Heap heap = new Heap();
+        heap.add(5);
+        heap.add(12);
+        heap.add(8);
+        heap.add(3);
+
+        assertFalse(heap.isEmpty());
     }
 
 }
