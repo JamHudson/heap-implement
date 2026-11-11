@@ -88,8 +88,10 @@ public class Heap {
      * Returns the top (smallest number in) the heap.
      * Does not remove the top from the heap.
      * @return the next number in the heap.
+     * @throws IllegalStateException
      */
-    public int peek() {
+    public int peek() throws IllegalStateException {
+        if (isEmpty()) throw new IllegalStateException("Cannot peek an empty heap");
         return array.get(0);
     }
 

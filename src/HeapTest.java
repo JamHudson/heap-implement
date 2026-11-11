@@ -164,6 +164,14 @@ public class HeapTest {
     }
 
     @Test
+    public void peekThrowsErrorWhenEmpty() {
+        Heap heap = new Heap();
+        assertThrows(IllegalStateException.class, () -> {
+            heap.peek();
+        });
+    }
+
+    @Test
     public void isEmptyTrueWhenEmpty() {
         Heap heap = new Heap();
         
