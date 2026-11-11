@@ -124,6 +124,25 @@ public class HeapTest {
     }
 
     @Test 
+    public void popLargeTest() {
+        Heap heap = new Heap();
+        List<Integer> hugeList = List.of(3,4,2,-5,3,6,-7,2,65,-8,34,-24,6,87,3,2,5,-3,2,5,6,43,2,54,-6,8,4,2,3,5,7,8,4,3234,5,-4,2,4,4,5,-2,-234,0,5,53,3,2,4,5,35,2,4,1);
+        for (Integer num : hugeList) {
+            heap.add(num);
+        }
+
+        List<Integer> sortedList = new ArrayList<>(hugeList);
+        sortedList.sort(null);
+
+        List<Integer> pulled = new ArrayList<>();
+        while (!heap.isEmpty()) {
+            pulled.add(heap.pop());
+        }
+
+        assertEquals(sortedList,pulled);
+    }
+
+    @Test 
     public void peekReturnsValue() {
         Heap heap = new Heap();
         heap.add(5);
