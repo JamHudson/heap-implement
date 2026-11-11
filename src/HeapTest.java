@@ -1,4 +1,5 @@
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +58,21 @@ public class HeapTest {
         Heap heap = new Heap();
 
         assertEquals(0, heap.size());
+    }
+
+    @Test 
+    public void addExtremes() {
+        Heap heap = new Heap();
+        heap.add(Integer.MAX_VALUE);
+        heap.add(Integer.MIN_VALUE);
+        heap.add(0);
+
+        List<Integer> pulled = new ArrayList<>();
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
+        pulled.add(heap.pop());
+
+        assertEquals(List.of(Integer.MIN_VALUE,0,Integer.MAX_VALUE), pulled);
     }
     
     @Test 
@@ -140,6 +156,25 @@ public class HeapTest {
         }
 
         assertEquals(sortedList,pulled);
+    }
+
+    @Test 
+    public void popDuplicates() {
+        Heap heap = new Heap();
+        heap.add(0);
+        heap.add(0);
+        heap.add(1);
+        heap.add(3);
+        heap.add(0);
+        heap.add(5);
+        heap.add(0);
+
+        List<Integer> pulled = new ArrayList<>();
+        while (!heap.isEmpty()) {
+            pulled.add(heap.pop());
+        }
+
+        assertEquals(List.of(0,0,0,0,1,3,5), pulled);
     }
 
     @Test 
