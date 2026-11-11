@@ -10,17 +10,14 @@ import java.util.Scanner;
  *   - Check the size
  *   - Check whether the heap is empty
  *   - Quit
- * 
- * Wherever you see TODO comments, you will need to fill in the appropriate
- * code to construct your Heap or call one of its methods. The method names
- * and return types are up to you based on your design decisions.
  */
 public class HeapRunner {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // TODO: Construct your Heap here.
+        // Construct the heap.
+        Heap heap = new Heap();
 
         System.out.println("=== Heap Tester ===");
 
@@ -39,23 +36,33 @@ public class HeapRunner {
                     continue;
                 }
  
-                // TODO: Call your "add" method on the heap, passing in 'value'.
-                // TODO: Print message letting user know value was added
+                // Add value to heap.
+                heap.add(value);
+                System.out.println("Added "+(value)+" to heap.");
  
             } else if (choice.equals("p") || choice.equals("pop")) {
-                // TODO: Call your "pop" method and print the result.
-                // Properly handle the case of an empty heap!
+                try {
+                    int result = heap.pop();
+                    System.out.println("Popped: "+result);
+                } catch (IllegalStateException error) {
+                    System.out.println("Heap is empty, cannot pop.");
+                }
 
             } else if (choice.equals("k") || choice.equals("peek")) {
-                // TODO: Call your "peek" method and print the result
-                // Properly handle the case of an empty heap!
+                try {
+                    int result = heap.peek();
+                    System.out.println("Peeked: "+result);
+                } catch (IllegalStateException error) {
+                    System.out.println("Heap is empty, cannot peek.");
+                }
 
             } else if (choice.equals("s") || choice.equals("size")) {
-                // TODO: Call your "size" method and print the result
+                int size = heap.size();
+                System.out.println("Size: "+size);
 
             } else if (choice.equals("e") || choice.equals("empty")) {
-                // TODO: Call your "isEmpty" method and print the result
-
+                boolean isEmpty = heap.isEmpty();
+                System.out.println("Is Empty: "+isEmpty);
             } else if (choice.equals("q") || choice.equals("quit")) {
                 break;
 
