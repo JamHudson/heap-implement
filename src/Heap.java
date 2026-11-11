@@ -32,7 +32,7 @@ public class Heap {
         array.add(data);
         // While the new number has not find its final spot
         while (true) {
-            boolean currentSmallerThanParent = numAt(curIdx).compareTo(numAt(parentOf(curIdx))) < 0;
+            boolean currentSmallerThanParent = numAt(curIdx) < numAt(parentOf(curIdx));
             if (currentSmallerThanParent) {
                 // Move up
                 if (swap(curIdx, parentOf(curIdx)))
@@ -74,7 +74,7 @@ public class Heap {
             if (idxOfSmallest == -1) break;
 
             // If the smallest child is smaller than the replacement
-            boolean replacementIsGreater = replacement.compareTo(numAt(idxOfSmallest)) > 0;
+            boolean replacementIsGreater = replacement > numAt(idxOfSmallest);
             if (replacementIsGreater) {
                 // Swap with the smallest child
                 swap(curIdx, idxOfSmallest);
@@ -160,7 +160,7 @@ public class Heap {
         // If both exist
         if (hasLeft && hasRight) {
             // Choose the smaller one
-            boolean leftGreater = numAt(leftIdx).compareTo(numAt(rightIdx)) > 0;
+            boolean leftGreater = numAt(leftIdx) > numAt(rightIdx);
             idxOfSmallest = leftGreater ? rightIdx : leftIdx;
         } 
         // Else if only the left one exists
