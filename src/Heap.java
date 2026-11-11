@@ -70,7 +70,7 @@ public class Heap {
 
         // While the replacement has not found its final position
         while (true) {
-            int idxOfSmallest = getSmallest(curIdx);
+            int idxOfSmallest = getSmallestChildIndex(curIdx);
             if (idxOfSmallest == -1) break;
 
             // If the smallest child is smaller than the replacement
@@ -148,7 +148,7 @@ public class Heap {
      * @param idx the parent index
      * @return smallest child index
      */
-    private int getSmallest(int idx) {
+    private int getSmallestChildIndex(int idx) {
         int idxOfSmallest = -1;
         // Check for left child
         int leftIdx = leftOf(idx);
