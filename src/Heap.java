@@ -4,33 +4,30 @@ import java.util.List;
 /**
  * A min-heap.
  * 
- * Must contain functionality for the following: (n = # of elements in heap)
- * 
+ * Supports the following:
  * Adding a new value to the heap  O(log(n))
  * Popping the front of the heap O(log(n))
  * Peeking at the front of the heap without removing the element O(1)
  * Getting the size of the heap O(1)
  * Checking whether the heap is empty O(1)
  * 
- * 
- * The Heap must hold ints
- * 
- * Use List/ArrayList as a backing array, but DO NOT use the
- * PriorityQueue class. Do not make Node objects, use array
- * indexing instead.
- * 
- * It is up to you to make design decisions about how to:
- *  - name methods
- *  - determine return value and argument types
- *  - hold private instance variables
+ * Backed by an ArrayList
  */
 public class Heap {
     private List<Integer> array;
 
+    /**
+     * Creates a new empty heap.
+     */
     public Heap() {
         this.array = new ArrayList<>();
     }
 
+    /**
+     * Adds the given number to the heap.
+     * 
+     * @param data
+     */
     public void add(int data) {
         int curIdx = size();
         array.add(data);
@@ -44,6 +41,12 @@ public class Heap {
         }
     }
 
+    /**
+     * Removes the top of (smallest number in) the heap.
+     * 
+     * @return next number in the heap.
+     * @throws IllegalStateException
+     */
     public int pop() throws IllegalStateException {
         if (isEmpty()) throw new IllegalStateException("Cannot pop an empty heap");
         int popped = array.get(0);
@@ -81,14 +84,27 @@ public class Heap {
         return popped;
     }
 
+    /**
+     * Returns the top (smallest number in) the heap.
+     * Does not remove the top from the heap.
+     * @return the next number in the heap.
+     */
     public int peek() {
         return array.get(0);
     }
 
+    /**
+     * Returns the size of the heap.
+     * @return the heap size
+     */
     public int size() {
         return array.size();
     }
 
+    /**
+     * Returns whether the heap is empty.
+     * @return True if empty
+     */
     public boolean isEmpty() {
         return array.isEmpty();
     }
@@ -125,6 +141,11 @@ public class Heap {
         return val1 - val2;
     }
 
+    /**
+     * Returns whether the given index is in bounds for this heap.
+     * @param idx the index to check for inBounds
+     * @return True if inbounds, False otherwise
+     */
     private boolean inBounds(int idx) {
         if (idx < 0) return false;
         if (idx >= size()) return false;
