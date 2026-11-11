@@ -31,13 +31,20 @@ public class Heap {
     public void add(int data) {
         int curIdx = size();
         array.add(data);
-        // While parent is greater
-        while (compare(curIdx, parentOf(curIdx)) < 0) {
-            // Move up
-            if (swap(curIdx, parentOf(curIdx))) {
-                curIdx = parentOf(curIdx);
-            } else
+        // While the new number has not find its final spot
+        while (true) {
+            boolean currentSmallerThanParent = numAt(curIdx).compareTo(numAt(parentOf(curIdx))) < 0;
+            if (currentSmallerThanParent) {
+                // Move up
+                if (swap(curIdx, parentOf(curIdx)))
+                    curIdx = parentOf(curIdx);
+                // It can't swap with it (because it doesn't exist)
+                else
+                    break;
+            } else {
+                // It's where it needs to be.
                 break;
+            }
         }
     }
 
@@ -55,30 +62,27 @@ public class Heap {
             array.remove(0);
             return popped;
         }
-        int replacement = array.get(size() - 1);
+        Integer replacement = array.get(size() - 1);
         int curIdx = 0;
 
-        // Remove the moved indexes
-        array.remove(0);
+        // Replace the first node
+        array.set(0, replacement);
         array.remove(size() - 1);
 
-        // Move the replacement to the top.
-        array.add(0, replacement);
-
-        // While the replacement has a child smaller than it (not at rest)
+        // While the replacement has not found its final position
         while (true) {
-            // If the left child is smaller
-            if (inBounds(leftOf(curIdx)) && compare(leftOf(curIdx), curIdx) < 0) {
-                // Swap with the left child
-                swap(curIdx, leftOf(curIdx));
+            int idxOfSmallest = getSmallest(curIdx);
+            if (idxOfSmallest == -1) break;
+
+            // If the smallest child is smaller than the replacement
+            boolean replacementIsGreater = replacement.compareTo(numAt(idxOfSmallest)) > 0;
+            if (replacementIsGreater) {
+                // Swap with the smallest child
+                swap(curIdx, idxOfSmallest);
+                curIdx = idxOfSmallest;
             }
-            // If the right child is smaller
-            if (inBounds(rightOf(curIdx)) && compare(rightOf(curIdx), curIdx) < 0) {
-                // Swap with the right child
-                swap(curIdx, rightOf(curIdx));
-            }
-            // If neither child is smaller, then end the loop.
-            break;
+            // If the replacement is larger than its children, then end the loop.
+            else break;
         }
 
         return popped;
@@ -131,16 +135,41 @@ public class Heap {
     }
 
     /**
-     * 
-     * @param idx1
-     * @param idx2
-     * @return
+     * Returns the number at the given index.
+     * @param idx the index to check.
+     * @return the number at the given index.
      */
-    private int compare(int idx1, int idx2) {
-        int val1 = array.get(idx1);
-        int val2 = array.get(idx2);
+    private Integer numAt(int idx) throws IndexOutOfBoundsException {
+        return array.get(idx);
+    }
 
-        return val1 - val2;
+    /**
+     * Returns the index of the smallest child of an index.
+     * Returns -1 if there are no children.
+     * @param idx the parent index
+     * @return smallest child index
+     */
+    private int getSmallest(int idx) {
+        int idxOfSmallest = -1;
+        // Check for left child
+        int leftIdx = leftOf(idx);
+        boolean hasLeft = inBounds(leftIdx);
+        // Check for right child
+        int rightIdx = rightOf(idx);
+        boolean hasRight = inBounds(rightIdx);
+
+        // If both exist
+        if (hasLeft && hasRight) {
+            // Choose the smaller one
+            boolean leftGreater = numAt(leftIdx).compareTo(numAt(rightIdx)) > 0;
+            idxOfSmallest = leftGreater ? rightIdx : leftIdx;
+        } 
+        // Else if only the left one exists
+        else if (hasLeft) idxOfSmallest = leftIdx;
+        // Else if only the right one exists
+        else if (hasRight) idxOfSmallest = rightIdx;
+        // Otherwise if there aren't any children.
+        return idxOfSmallest;
     }
 
     /**
