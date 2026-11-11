@@ -138,7 +138,7 @@ public class Heap {
      * @param idx the index to check.
      * @return the number at the given index.
      */
-    private Integer numAt(int idx) throws IndexOutOfBoundsException {
+    private Integer numAt(int idx) {
         return array.get(idx);
     }
 
