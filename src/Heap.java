@@ -14,7 +14,7 @@ import java.util.List;
  * Backed by an ArrayList
  */
 public class Heap {
-    private List<Integer> array;
+    private final ArrayList<Integer> array;
 
     /**
      * Creates a new empty heap.
